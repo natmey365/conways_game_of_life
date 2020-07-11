@@ -6,5 +6,5 @@ int main(){
 	if (grid.testCell(1, 1) == true)
 		std::cout << "works!\n";
 	else
-		std::cout << "doesnt wor! :( \n";
+		std::cout << "doesnt work! :( \n";
 }

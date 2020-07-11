@@ -3,7 +3,7 @@
 #include <iostream>
 #include "grid.h"
 
-Grid::Grid(int i, int j)i : size_x(i), size_y(j)
+Grid::Grid(int i, int j) : size_x(i), size_y(j)
 {
 	grid = new Cell*[i];
 	for (int k=0; k < i; k++)

@@ -15,7 +15,7 @@ class Grid
 
 	private:
 		int size_x;
-		int size y;
+		int size_ y;
 		Cell **grid;
 
 		void growGrid();
