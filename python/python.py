@@ -3,6 +3,7 @@ import argparse
 import numpy as np 
 import matplotlib.pyplot as plt 
 import matplotlib.animation as animation 
+import os.path
 
 # setting up the values for the grid 
 ON = 255
@@ -83,6 +84,7 @@ def update(frameNum, img, grid, N):
 
 # main() function 
 def main(): 
+	grid_file = ''
 
 	# Command line args are in sys.argv[1], sys.argv[2] .. 
 	# sys.argv[0] is the script name itself and can be ignored 
@@ -95,6 +97,7 @@ def main():
 	parser.add_argument('--interval', dest='interval', required=False) 
 	parser.add_argument('--glider', action='store_true', required=False) 
 	parser.add_argument('--gosper', action='store_true', required=False) 
+	parser.add_argument('--grid_file', required=False)
 	args = parser.parse_args() 
 	
 	# set grid size 
@@ -109,9 +112,12 @@ def main():
 
 	# declare grid 
 	grid = np.array([]) 
+	
+	if os.path.isfile(args.grid_file):
+		grid = np.loadtxt(args.grid_file, delimiter=',', dtype=int)
 
 	# check if "glider" demo flag is specified 
-	if args.glider: 
+	elif args.glider: 
 		grid = np.zeros(N*N).reshape(N, N) 
 		addGlider(1, 1, grid) 
 	elif args.gosper: 
