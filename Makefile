@@ -8,7 +8,8 @@ TEST_DIR     := test
 OBJ_DIR      := obj
 
 SRC_FILES    := $(wildcard $(SRC_DIR)/*.cpp)
-OBJ_FILES    := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
+INC_FILES    := $(wildcard $(INC_DIR)/*.h)
+OBJS         := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 #======================================================
 # Compiler, Archiver, and flags
@@ -37,7 +38,6 @@ $(LIB): lib_deps lib_objs
 	 $(AR) $@ $(OBJS)
 
 lib_deps:
-	$(MAKE) -C $(NN_DIR) neural_network
 
 $(OBJ_DIR)/%.o: src/%.cpp inc/%.h | $(OBJ_DIR)
 	$(CPP) $(COMPILE_FLAGS) -c -o $@ $<
@@ -49,7 +49,7 @@ lib_objs:
 	@echo "============================================="; \
 	 echo "= Compiling $(LIB) objects      ="; \
 	 echo "============================================="
-	 $(MAKE) $(OBJS)
+	$(MAKE) $(OBJS)
 
 
 
