@@ -1,12 +1,5 @@
-# ignore everything by default
-*
-
-# always track .gitignore, .gitattributes
-!**/.gitignore
-
 # Allowing the following directories use !/<pattern>/
 !/inc/
-!/seeds/
 !/src/
 !/test/
 

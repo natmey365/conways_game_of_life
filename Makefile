@@ -1,14 +1,57 @@
-EXECUTABLE   := main
+#======================================================
+# Files and directories
+#======================================================
+LIB          := game_of_life.a
 SRC_DIR      := src
 INC_DIR      := inc
+TEST_DIR     := test
 OBJ_DIR      := obj
+
 SRC_FILES    := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES    := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
-LDFLAGS      :=
-CPPFLAGS     := -I$(INC_DIR)
-CXXFLAGS     := -Wall
 
-.PHONY: clean
+#======================================================
+# Compiler, Archiver, and flags
+#======================================================
+CPP            := g++
+COMPILE_FLAGS  := -Wall -I$(INC_DIR)
+AR             := ar rcs
+AR_FLAGS       :=
+
+#======================================================
+# Targets
+#======================================================
+.PHONY: clean test
+
+all: $(LIB)
+
+#=========
+# Library
+#=========
+lib: $(LIB)
+game_of_life: $(LIB)
+$(LIB): lib_deps lib_objs
+	@echo "============================================="; \
+	 echo "= Building $(LIB)               ="; \
+	 echo "============================================="
+	 $(AR) $@ $(OBJS)
+
+lib_deps:
+	$(MAKE) -C $(NN_DIR) neural_network
+
+$(OBJ_DIR)/%.o: src/%.cpp inc/%.h | $(OBJ_DIR)
+	$(CPP) $(COMPILE_FLAGS) -c -o $@ $<
+
+$(OBJ_DIR):
+	mkdir -p $@
+
+lib_objs:
+	@echo "============================================="; \
+	 echo "= Compiling $(LIB) objects      ="; \
+	 echo "============================================="
+	 $(MAKE) $(OBJS)
+
+
 
 $(EXECUTABLE): $(OBJ_FILES)
 	g++ $(LDFLAGS) -o $@ $^
