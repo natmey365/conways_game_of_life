@@ -9,7 +9,11 @@ class Cell
 {
 	public:
 		Cell();
-		bool isAlive();
+		Cell(bool is_alive_);
+		void setAlive();
+		void setDead();
+		void setIsAlive(bool is_alive_);
+		bool getIsAlive();
 
 	private:
 		bool is_alive;
